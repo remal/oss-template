@@ -1,2 +1,0 @@
-#!/usr/bin/env sh
-for i in $(seq 1 5); do [ $i -gt 1 ] && sleep 20; "$@" && s=0 && break || s=$?; done; (exit $s)
