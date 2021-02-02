@@ -5,9 +5,9 @@ on:
     paths:
     - .github/CODEOWNERS
     branches:
-    - **
+    - '**'
     tags-ignore:
-    - **
+    - '**'
   schedule:
   - cron: '37 4 * * *'
   workflow_dispatch: { }
