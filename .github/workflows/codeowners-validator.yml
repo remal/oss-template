@@ -16,9 +16,15 @@ on:
 jobs:
   codeowners-validation:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-    - uses: actions/checkout@v2
-    - name: CODEOWNERS validation
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Basic CODEOWNERS validation
       uses: mszostok/codeowners-validator@v0.6.0
       with:
+        checks: 'syntax,duppatterns,files'
         github_access_token: '${{ github.token }}'
