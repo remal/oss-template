@@ -1,9 +1,10 @@
-name: "Codeowners Validator"
+name: 'Codeowners validation'
 
 on:
   push:
     paths:
-    - .github/CODEOWNERS
+    - '.github/CODEOWNERS'
+    - '.github/workflows/codeowners-validator.yml'
     branches:
     - '**'
     tags-ignore:
@@ -13,12 +14,11 @@ on:
   workflow_dispatch: { }
 
 jobs:
-  sanity:
+  'Codeowners validation':
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: GitHub CODEOWNERS Validator
+    - name: CODEOWNERS validation
       uses: mszostok/codeowners-validator@v0.6.0
       with:
-        repository_path: .github/CODEOWNERS
         github_access_token: '${{ github.token }}'
