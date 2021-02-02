@@ -1,0 +1,24 @@
+name: "Codeowners Validator"
+
+on:
+  push:
+    paths:
+    - .github/CODEOWNERS
+    branches:
+    - **
+    tags-ignore:
+    - **
+  schedule:
+  - cron: '37 4 * * *'
+  workflow_dispatch: { }
+
+jobs:
+  sanity:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: GitHub CODEOWNERS Validator
+      uses: mszostok/codeowners-validator@v0.6.0
+      with:
+        repository_path: .github/CODEOWNERS
+        github_access_token: '${{ github.token }}'
