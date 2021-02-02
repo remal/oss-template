@@ -14,7 +14,7 @@ on:
   workflow_dispatch: { }
 
 jobs:
-  'Codeowners validation':
+  codeowners-validation:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
