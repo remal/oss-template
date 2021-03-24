@@ -19,6 +19,7 @@ build-cache/
 /.idea/*
 !/.idea/.editorconfig
 !/.idea/misc.xml
+!/.idea/groovyc.xml
 !/.idea/jsonSchemas.xml
 !/.idea/externalDependencies.xml
 !/.idea/saveactions_settings.xml
