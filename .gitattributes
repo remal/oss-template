@@ -3,5 +3,8 @@
 *.bat text eol=crlf
 *.cmd text eol=crlf
 
-*.jar -text -diff
-*.zip -text -diff
+*.jar binary
+*.zip binary
+
+/.yarn/releases/** binary
+/.yarn/plugins/** binary
