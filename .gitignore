@@ -16,6 +16,7 @@ build-cache/
 /node_modules
 
 # Intellij
+/layout.json
 /.idea/*
 !/.idea/.editorconfig
 !/.idea/misc.xml
