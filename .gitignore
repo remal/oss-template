@@ -1,4 +1,5 @@
 log/
+!**/src/**/log/
 *.log
 hs_err_pid*
 java_pid*.hprof
