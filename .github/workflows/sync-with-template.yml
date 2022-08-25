@@ -3,11 +3,7 @@ name: Sync with template repository
 on:
   schedule:
   - cron: '47 * * * *'
-  workflow_dispatch:
-    inputs:
-      debug:
-        required: false
-        description: Set to 'true' to enable debug logs
+  workflow_dispatch: { }
 
 defaults:
   run:
@@ -15,19 +11,17 @@ defaults:
 
 env:
   PUSH_BACK_TOKEN: ${{ secrets.PUSH_BACK_TOKEN }}
-  ACTIONS_STEP_DEBUG: ${{ github.event.inputs.debug }}
 
 jobs:
   sync-with-template:
     name: Sync with template repository
     runs-on: ubuntu-latest
     timeout-minutes: 15
+
     steps:
     - name: Sync with template repository
-      uses: remal-github-actions/sync-with-template@v1
+      uses: remal-github-actions/sync-with-template@v2
       if: ${{ env.PUSH_BACK_TOKEN }}
       with:
         githubToken: '${{ env.PUSH_BACK_TOKEN }}'
         templateRepository: '${{ secrets.TEMPLATE_REPOSITORY }}'
-        ignorePaths: |
-          repository-activity.bumper
