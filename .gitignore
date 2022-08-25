@@ -1,22 +1,27 @@
+# Logs
 log/
 !**/src/**/log/
 *.log
+
+# Java
 hs_err_pid*
 java_pid*.hprof
 
-# Maven:
+# Maven
 target/
+!**/src/**/target/
 
-# Gradle:
+# Gradle
 build/
 !**/src/**/build/
 build-cache/
+!**/src/**/build-cache/
 .gradle/
 
 # NodeJS
 node_modules/
 
-# Intellij
+# IntelliJ
 /layout.json
 /.idea/*
 !/.idea/.editorconfig
