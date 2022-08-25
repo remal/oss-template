@@ -1,27 +1,32 @@
-# Logs
+# Logs:
 log/
 !**/src/**/log/
 *.log
 
-# Java
+
+# Java:
 hs_err_pid*
 java_pid*.hprof
 
-# Maven
+
+# Maven:
 target/
 !**/src/**/target/
 
-# Gradle
+
+# Gradle:
 build/
 !**/src/**/build/
 build-cache/
 !**/src/**/build-cache/
 .gradle/
 
-# NodeJS
+
+# NodeJS:
 node_modules/
 
-# IntelliJ
+
+# IntelliJ:
 /layout.json
 /.idea/*
 !/.idea/.editorconfig
@@ -47,10 +52,12 @@ node_modules/
 *.iws
 *.*___jb_tmp___
 
-# Eclipse
+
+# Eclipse:
 .classpath
 .project
 .settings/
 
-# Mac
+
+# Mac:
 .DS_Store
