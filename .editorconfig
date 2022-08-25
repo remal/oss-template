@@ -347,14 +347,7 @@ ij_editorconfig_spaces_around_assignment_operators = true
 charset = latin1
 max_line_length = 999
 
-[*.{yml, yaml, xml, puml, md, svg, xsl, xslt}]
-max_line_length = 999
-tab_width = 2
-indent_size = 2
-continuation_indent_size = 2
-ij_continuation_indent_size = 2
-
-[*.{json, json5}]
+[*.{yml, json, json5, yaml, xml, puml, md, svg, xsl, xslt}]
 max_line_length = 999
 tab_width = 2
 indent_size = 2
