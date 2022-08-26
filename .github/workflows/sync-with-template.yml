@@ -10,7 +10,7 @@ defaults:
     shell: bash
 
 env:
-  PUSH_BACK_TOKEN: ${{ secrets.PUSH_BACK_TOKEN }}
+  PUSH_BACK_TOKEN: {{secrets.PUSH_BACK_TOKEN}}
 
 jobs:
   sync-with-template:
@@ -21,7 +21,8 @@ jobs:
     steps:
     - name: Sync with template repository
       uses: remal-github-actions/sync-with-template@v2
-      if: ${{ env.PUSH_BACK_TOKEN }}
+      if: {{env.PUSH_BACK_TOKEN}}
       with:
-        githubToken: '${{ env.PUSH_BACK_TOKEN }}'
-        templateRepository: '${{ secrets.TEMPLATE_REPOSITORY }}'
+        githubToken: '{{env.PUSH_BACK_TOKEN}}'
+        templateRepository: '{{secrets.TEMPLATE_REPOSITORY}}'
+        additionalPatch: '{{secrets.SYNC_WITH_TEMPLATE_ADDITIONAL_PATCH}}'
