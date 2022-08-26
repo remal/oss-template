@@ -1,6 +1,12 @@
 name: Sync with template repository
 
 on:
+  push:
+    paths:
+    - '.github/sync-with-template.yml'
+    - '.github/workflows/sync-with-template.yml'
+    branches:
+    - 'main'
   schedule:
   - cron: '47 * * * *'
   workflow_dispatch: { }
