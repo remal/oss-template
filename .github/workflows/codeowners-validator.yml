@@ -9,7 +9,6 @@ on:
     - '.github/workflows/codeowners-validator.yml'
     branches:
     - '**'
-  pull_request: { }
   schedule:
   - cron: '37 4 * * *'
   workflow_dispatch: { }
