@@ -7,6 +7,7 @@ on:
     - '.github/workflows/sync-with-template.yml'
     branches:
     - 'main'
+    - 'master'
   schedule:
   - cron: '47 * * * *'
   workflow_dispatch: { }
