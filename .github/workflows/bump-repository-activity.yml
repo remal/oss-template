@@ -15,7 +15,6 @@ env:
 
 jobs:
   bump-repository-activity:
-    if: ${{env.PUSH_BACK_TOKEN}}
     name: Bump repository activity
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -23,6 +22,7 @@ jobs:
     steps:
     - name: Bump repository activity
       uses: remal-github-actions/bump-repository-activity@v1
+      if: ${{env.PUSH_BACK_TOKEN}}
       with:
         githubToken: ${{env.PUSH_BACK_TOKEN}}
         bumperFile: 'repository-activity.bumper'
