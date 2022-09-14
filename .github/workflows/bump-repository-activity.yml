@@ -10,9 +10,6 @@ on:
     - '.github/workflows/bump-repository-activity.yml'
   workflow_dispatch: { }
 
-env:
-  PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN}}
-
 jobs:
   bump-repository-activity:
     name: Bump repository activity
@@ -22,6 +19,8 @@ jobs:
     steps:
     - name: Bump repository activity
       uses: remal-github-actions/bump-repository-activity@v1
+      env:
+        PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN}}
       if: ${{env.PUSH_BACK_TOKEN}}
       with:
         githubToken: ${{env.PUSH_BACK_TOKEN}}
