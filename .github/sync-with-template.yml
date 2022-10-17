@@ -7,6 +7,8 @@ includes:
 - '.editorconfig'
 - 'LICENSE'
 - 'retry-connection-timeouts'
+- '*-retry-connection-timeouts'
+- 'retry-connection-timeouts-*'
 - 'checkstyle.xml'
 - 'lombok.config'
 - '.eslint*'
