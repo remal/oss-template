@@ -331,6 +331,8 @@ ij_yaml_spaces_within_braces = true
 ij_yaml_spaces_within_brackets = true
 
 ij_markdown_max_lines_around_header = 2
+ij_markdown_max_lines_around_block_elements = 2
+ij_markdown_max_lines_between_paragraphs = 2
 
 ij_asciidoc_formatting_enabled = true
 ij_asciidoc_one_sentence_per_line = true
