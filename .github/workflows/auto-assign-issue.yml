@@ -13,4 +13,4 @@ jobs:
     - name: Auto-assign issue
       uses: pozil/auto-assign-issue@v1
       with:
-        assignees: ${{secrets.DEFAULT_ISSUE_ASSIGNEE || secrets.DEFAULT_PR_ASSIGNEE || 'remal'}}
+        assignees: ${{secrets.DEFAULT_ISSUE_ASSIGNEE || 'remal'}}
