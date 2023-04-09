@@ -229,7 +229,7 @@ ij_java_entity_pk_class = java.lang.String
 ij_java_entity_vo_suffix = VO
 ij_java_generate_final_locals = false
 ij_java_generate_final_parameters = false
-ij_java_imports_layout = $*,|,*
+ij_java_imports_layout = $*, | ,*
 ij_java_insert_inner_class_imports = true
 ij_java_insert_override_annotation = true
 ij_java_layout_static_imports_separately = true
@@ -262,7 +262,7 @@ ij_java_use_fq_class_names = false
 ij_java_use_single_class_imports = true
 ij_java_visibility = public
 
-ij_groovy_imports_layout = $*,|,*
+ij_groovy_imports_layout = $*, |, *
 ij_groovy_align_named_args_in_map = false
 
 ij_kotlin_align_in_columns_case_branch = false
