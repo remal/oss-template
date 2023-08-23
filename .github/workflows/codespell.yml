@@ -1,0 +1,34 @@
+name: 'codespell'
+
+on:
+  push:
+    branches:
+    - main
+  pull_request: { }
+  workflow_dispatch: { }
+
+permissions:
+  contents: read
+
+jobs:
+  codespell:
+    if: >-
+      ${{
+        (github.event_name == 'push' && github.ref_protected)
+        || github.event_name != 'push'
+      }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        fetch-depth: 0
+    - name: Execute codespell
+      uses: codespell-project/actions-codespell@v2
+      with:
+        only_warn: 'true'
+        ignore_words_file: .codespellignore
+        check_filenames: 'true'
+        check_hidden: 'true'
