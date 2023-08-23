@@ -29,6 +29,6 @@ jobs:
       uses: codespell-project/actions-codespell@v2
       with:
         only_warn: 'true'
-        ignore_words_file: .codespellignore
+        #ignore_words_file: .codespellignore
         check_filenames: 'true'
         check_hidden: 'true'
