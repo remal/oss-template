@@ -9,8 +9,7 @@ updates:
     interval: "daily"
   open-pull-requests-limit: 1000
 - package-ecosystem: "gradle"
-  # Disable Gradle updates, Renovate will do it
-  open-pull-requests-limit: 0
+  open-pull-requests-limit: 0 # Disable Gradle updates, Renovate will do it
   directory: "/"
   schedule:
-    interval: "monthly"
+    interval: "daily"
