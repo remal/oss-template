@@ -10,8 +10,12 @@ on:
     - '.github/workflows/bump-repository-activity.yml'
   workflow_dispatch: { }
 
+env:
+  PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN}}
+
 jobs:
   bump-repository-activity:
+    if: ${{env.PUSH_BACK_TOKEN}}
     name: Bump repository activity
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -20,11 +24,11 @@ jobs:
     - name: Get rate limits
       uses: remal-github-actions/get-rate-limits@v1
       id: getRateLimits
+      with:
+        githubToken: ${{env.PUSH_BACK_TOKEN}}
     - name: Bump repository activity
-      if: ${{env.PUSH_BACK_TOKEN && (github.event_name == 'push' || steps.getRateLimits.outputs.coreUsage < 50)}}
+      if: ${{github.event_name == 'push' || steps.getRateLimits.outputs.coreUsage < 50}}
       uses: remal-github-actions/bump-repository-activity@v1
-      env:
-        PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN}}
       with:
         githubToken: ${{env.PUSH_BACK_TOKEN}}
         bumperFile: 'repository-activity.bumper'
