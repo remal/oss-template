@@ -17,7 +17,11 @@ jobs:
     timeout-minutes: 15
     concurrency: bump-repository-activity
     steps:
+    - name: Get rate limits
+      uses: remal-github-actions/get-rate-limits
+      id: getRateLimits
     - name: Bump repository activity
+      if: ${{steps.getRateLimits.outputs.coreUsage < 50}}
       uses: remal-github-actions/bump-repository-activity@v1
       env:
         PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN}}
