@@ -26,6 +26,7 @@ jobs:
       with:
         githubToken: ${{env.PUSH_BACK_TOKEN || github.token}}
     outputs:
+      usage: ${{steps.getRateLimits.outputs.coreUsage}}
       enough: ${{steps.getRateLimits.outputs.coreUsage < 50}}
 
   bump-repository-activity:
@@ -40,8 +41,6 @@ jobs:
     - name: Bump repository activity
       if: ${{env.PUSH_BACK_TOKEN}}
       uses: remal-github-actions/bump-repository-activity@v1
-      env:
-        ENOUGH_RATE_LIMITS: ${{needs.rate-limits.outputs.enough}}
       with:
         githubToken: ${{env.PUSH_BACK_TOKEN}}
         bumperFile: 'repository-activity.bumper'
