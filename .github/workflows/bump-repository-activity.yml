@@ -26,7 +26,6 @@ jobs:
       with:
         githubToken: ${{env.PUSH_BACK_TOKEN || github.token}}
     outputs:
-      usage: ${{steps.getRateLimits.outputs.coreUsage}}
       enough: ${{steps.getRateLimits.outputs.coreUsage < 50}}
 
   bump-repository-activity:
