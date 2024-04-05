@@ -1,4 +1,4 @@
-name: Bump repository activity
+vname: Bump repository activity
 
 on:
   schedule:
@@ -40,6 +40,8 @@ jobs:
     - name: Bump repository activity
       if: ${{env.PUSH_BACK_TOKEN}}
       uses: remal-github-actions/bump-repository-activity@v1
+      env:
+        ENOUGH_RATE_LIMITS: ${{needs.rate-limits.outputs.enough}}
       with:
         githubToken: ${{env.PUSH_BACK_TOKEN}}
         bumperFile: 'repository-activity.bumper'
