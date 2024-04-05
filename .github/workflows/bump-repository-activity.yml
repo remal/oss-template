@@ -28,6 +28,17 @@ jobs:
     outputs:
       enough: ${{steps.getRateLimits.outputs.coreUsage < 50}}
 
+  not-enough-rate-limit:
+    needs:
+    - rate-limits
+    if: ${{fromJSON(needs.rate-limits.outputs.enough) != true}}
+    name: Not enough rate limits
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - run: |
+        echo "::warning::Not enough rate limits!"
+
   bump-repository-activity:
     needs:
     - rate-limits
