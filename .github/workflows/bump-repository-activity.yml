@@ -18,7 +18,7 @@ jobs:
     concurrency: bump-repository-activity
     steps:
     - name: Get rate limits
-      uses: remal-github-actions/get-rate-limits
+      uses: remal-github-actions/get-rate-limits@v1
       id: getRateLimits
     - name: Bump repository activity
       if: ${{steps.getRateLimits.outputs.coreUsage < 50}}
