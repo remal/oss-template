@@ -15,15 +15,44 @@ defaults:
   run:
     shell: bash
 
+env:
+  PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN || github.token}}
+
 jobs:
+  rate-limits:
+    name: Check rate limits
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency: rebase-dependabot-pull-requests
+    steps:
+    - name: Get rate limits
+      uses: remal-github-actions/get-rate-limits@v1
+      id: getRateLimits
+      with:
+        githubToken: ${{env.PUSH_BACK_TOKEN || github.token}}
+    outputs:
+      enough: ${{steps.getRateLimits.outputs.coreUsage < 50}}
+  not-enough-rate-limits:
+    needs:
+    - rate-limits
+    if: ${{fromJSON(needs.rate-limits.outputs.enough) != true}}
+    name: Not enough rate limits
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - run: |
+        echo "::warning::Not enough rate limits!"
+
   rebase-dependabot-pull-requests:
+    needs:
+    - rate-limits
+    if: ${{github.event_name == 'push' || fromJSON(needs.rate-limits.outputs.enough) == true}}
     name: Rebase Dependabot pull requests
     runs-on: ubuntu-latest
     timeout-minutes: 15
     concurrency: rebase-dependabot-pull-requests
-
     steps:
     - name: Rebase Dependabot pull requests
       uses: remal-github-actions/rebase-dependabot-pull-requests@v1
       with:
-        githubToken: ${{secrets.PUSH_BACK_TOKEN || github.token}}
+        githubToken: ${{env.PUSH_BACK_TOKEN}}

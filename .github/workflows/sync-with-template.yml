@@ -21,16 +21,41 @@ env:
   PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN}}
 
 jobs:
+  rate-limits:
+    name: Check rate limits
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency: bump-repository-activity
+    steps:
+    - name: Get rate limits
+      uses: remal-github-actions/get-rate-limits@v1
+      id: getRateLimits
+      with:
+        githubToken: ${{env.PUSH_BACK_TOKEN || github.token}}
+    outputs:
+      enough: ${{steps.getRateLimits.outputs.coreUsage < 50}}
+  not-enough-rate-limits:
+    needs:
+    - rate-limits
+    if: ${{fromJSON(needs.rate-limits.outputs.enough) != true}}
+    name: Not enough rate limits
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - run: |
+        echo "::warning::Not enough rate limits!"
+
   sync-with-template:
+    needs:
+    - rate-limits
+    if: ${{env.PUSH_BACK_TOKEN && (github.event_name == 'push' || fromJSON(needs.rate-limits.outputs.enough) == true)}}
     name: Sync with template repository
     runs-on: ubuntu-latest
     timeout-minutes: 30
     concurrency: sync-with-template
-
     steps:
     - name: Sync with template repository
       uses: remal-github-actions/sync-with-template@v3
-      if: ${{env.PUSH_BACK_TOKEN}}
       with:
         githubToken: ${{env.PUSH_BACK_TOKEN}}
         templateRepository: ${{secrets.TEMPLATE_REPOSITORY || ''}}

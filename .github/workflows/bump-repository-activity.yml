@@ -27,8 +27,7 @@ jobs:
         githubToken: ${{env.PUSH_BACK_TOKEN || github.token}}
     outputs:
       enough: ${{steps.getRateLimits.outputs.coreUsage < 50}}
-
-  not-enough-rate-limit:
+  not-enough-rate-limits:
     needs:
     - rate-limits
     if: ${{fromJSON(needs.rate-limits.outputs.enough) != true}}
