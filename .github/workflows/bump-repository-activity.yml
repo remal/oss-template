@@ -25,18 +25,19 @@ jobs:
       id: getRateLimits
       with:
         githubToken: ${{env.PUSH_BACK_TOKEN || github.token}}
+    - name: Make decision
+      id: decision
+      run: |
+        echo "Core rate limit usage: ${{steps.getRateLimits.outputs.coreUsage}}"
+        if [ "${{steps.getRateLimits.outputs.coreUsage < 50}}" == "true" ]; then
+          echo "Enough rate limits"
+          echo 'enough=true' >> $GITHUB_OUTPUT
+        else
+          echo "::warning::Not enough rate limits!"
+          echo 'enough=false' >> $GITHUB_OUTPUT
+        fi
     outputs:
-      enough: ${{steps.getRateLimits.outputs.coreUsage < 50}}
-  not-enough-rate-limits:
-    needs:
-    - rate-limits
-    if: ${{fromJSON(needs.rate-limits.outputs.enough) != true}}
-    name: Not enough rate limits
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-    - run: |
-        echo "::warning::Not enough rate limits!"
+      enough: ${{steps.decision.outputs.enough}}
 
   bump-repository-activity:
     needs:
