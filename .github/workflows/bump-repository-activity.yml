@@ -1,4 +1,4 @@
-vname: Bump repository activity
+name: Bump repository activity
 
 on:
   schedule:
