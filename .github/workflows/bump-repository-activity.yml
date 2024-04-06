@@ -36,6 +36,9 @@ jobs:
           echo 'enough=true' >> $GITHUB_OUTPUT
         else
           echo "::warning::Not enough rate limits!"
+          if [ "${{github.event_name != 'schedule'}}" == "true" ]; then
+            echo "::warning::Executing anyway, as event is '${{github.event_name}}'"
+          fi
           echo 'enough=false' >> $GITHUB_OUTPUT
         fi
     outputs:
