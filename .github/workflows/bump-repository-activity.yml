@@ -27,6 +27,8 @@ jobs:
         githubToken: ${{env.PUSH_BACK_TOKEN || github.token}}
     - name: Make decision
       id: decision
+      env:
+        DUMP: ${{toJson(steps.getRateLimits.outputs)}}
       run: |
         echo "Core rate limit usage: ${{steps.getRateLimits.outputs.coreUsage}}"
         if [ "${{steps.getRateLimits.outputs.coreUsage < 50}}" == "true" ]; then
