@@ -25,7 +25,9 @@ jobs:
     name: Check rate limits
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    concurrency: sync-with-template
+    concurrency:
+      group: sync-with-template
+      cancel-in-progress: true
     steps:
     - name: Get rate limits
       uses: remal-github-actions/get-rate-limits@v1
@@ -36,7 +38,7 @@ jobs:
       id: decision
       run: |
         echo "Core rate limit usage: ${{steps.getRateLimits.outputs.coreUsage}}"
-        if [ "${{steps.getRateLimits.outputs.coreUsage < 50}}" == "true" ]; then
+        if [ "${{steps.getRateLimits.outputs.coreUsage < 75}}" == "true" ]; then
           echo "Enough rate limits"
           echo 'enough=true' >> $GITHUB_OUTPUT
         else
@@ -53,7 +55,9 @@ jobs:
     name: Sync with template repository
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    concurrency: sync-with-template
+    concurrency:
+      group: sync-with-template
+      cancel-in-progress: true
     steps:
     - name: Sync with template repository
       if: ${{env.PUSH_BACK_TOKEN}}

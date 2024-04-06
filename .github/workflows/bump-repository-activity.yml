@@ -18,7 +18,9 @@ jobs:
     name: Check rate limits
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    concurrency: bump-repository-activity
+    concurrency:
+      group: bump-repository-activity
+      cancel-in-progress: true
     steps:
     - name: Get rate limits
       uses: remal-github-actions/get-rate-limits@v1
@@ -29,7 +31,7 @@ jobs:
       id: decision
       run: |
         echo "Core rate limit usage: ${{steps.getRateLimits.outputs.coreUsage}}"
-        if [ "${{steps.getRateLimits.outputs.coreUsage < 50}}" == "true" ]; then
+        if [ "${{steps.getRateLimits.outputs.coreUsage < 75}}" == "true" ]; then
           echo "Enough rate limits"
           echo 'enough=true' >> $GITHUB_OUTPUT
         else
@@ -46,7 +48,9 @@ jobs:
     name: Bump repository activity
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    concurrency: bump-repository-activity
+    concurrency:
+      group: bump-repository-activity
+      cancel-in-progress: true
     steps:
     - name: Bump repository activity
       if: ${{env.PUSH_BACK_TOKEN}}

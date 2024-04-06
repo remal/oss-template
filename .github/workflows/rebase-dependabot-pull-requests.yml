@@ -23,7 +23,9 @@ jobs:
     name: Check rate limits
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    concurrency: rebase-dependabot-pull-requests
+    concurrency:
+      group: rebase-dependabot-pull-requests
+      cancel-in-progress: true
     steps:
     - name: Get rate limits
       uses: remal-github-actions/get-rate-limits@v1
@@ -34,7 +36,7 @@ jobs:
       id: decision
       run: |
         echo "Core rate limit usage: ${{steps.getRateLimits.outputs.coreUsage}}"
-        if [ "${{steps.getRateLimits.outputs.coreUsage < 50}}" == "true" ]; then
+        if [ "${{steps.getRateLimits.outputs.coreUsage < 75}}" == "true" ]; then
           echo "Enough rate limits"
           echo 'enough=true' >> $GITHUB_OUTPUT
         else
@@ -51,7 +53,9 @@ jobs:
     name: Rebase Dependabot pull requests
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    concurrency: rebase-dependabot-pull-requests
+    concurrency:
+      group: rebase-dependabot-pull-requests
+      cancel-in-progress: true
     steps:
     - name: Rebase Dependabot pull requests
       uses: remal-github-actions/rebase-dependabot-pull-requests@v1
