@@ -27,9 +27,6 @@ jobs:
         githubToken: ${{env.PUSH_BACK_TOKEN || github.token}}
     - name: Make decision
       id: decision
-      env:
-        DUMP1: ${{toJson(steps.getRateLimits.outputs)}}
-        DUMP2: ${{toJson(github)}}
       run: |
         echo "Core rate limit usage: ${{steps.getRateLimits.outputs.coreUsage}}"
         if [ "${{steps.getRateLimits.outputs.coreUsage < 50}}" == "true" ]; then
@@ -45,7 +42,7 @@ jobs:
   bump-repository-activity:
     needs:
     - rate-limits
-    if: ${{github.event_name == 'push' || fromJSON(needs.rate-limits.outputs.enough) == true}}
+    if: ${{github.event_name != 'schedule' || fromJSON(needs.rate-limits.outputs.enough) == true}}
     name: Bump repository activity
     runs-on: ubuntu-latest
     timeout-minutes: 5

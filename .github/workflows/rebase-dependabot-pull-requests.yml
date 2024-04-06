@@ -47,7 +47,7 @@ jobs:
   rebase-dependabot-pull-requests:
     needs:
     - rate-limits
-    if: ${{github.event_name == 'push' || fromJSON(needs.rate-limits.outputs.enough) == true}}
+    if: ${{github.event_name != 'schedule' || fromJSON(needs.rate-limits.outputs.enough) == true}}
     name: Rebase Dependabot pull requests
     runs-on: ubuntu-latest
     timeout-minutes: 15
