@@ -13,7 +13,6 @@ pull_request_rules:
   - -closed
   - -merged
   - -draft
-  - -locked
   - '#changes-requested-reviews-by=0'
   - check-success=build
   - check-success=WIP
@@ -45,7 +44,6 @@ pull_request_rules:
   - -closed
   - -merged
   - -draft
-  - -locked
   - '#changes-requested-reviews-by=0'
   - check-success=build
   - check-success=WIP
@@ -66,7 +64,6 @@ pull_request_rules:
   - -closed
   - -merged
   - -draft
-  - -locked
   - '#changes-requested-reviews-by=0'
   - check-success=build
   - check-success=WIP
