@@ -40,7 +40,28 @@ pull_request_rules:
 - name: Merge by authors automatically
   conditions:
   - author=remal
-  #- label!=sync-with-template
+  - label!=sync-with-template
+  - -conflict
+  - -closed
+  - -merged
+  - -draft
+  - -locked
+  - '#changes-requested-reviews-by=0'
+  - check-success=build
+  - check-success=WIP
+  - '#check-pending=0'
+  - '#check-failure=0'
+  actions:
+    review: { }
+    merge:
+      method: squash
+
+- name: Sync with template
+  conditions:
+  - author=remal
+  - label=sync-with-template
+  - '#added-files=0'
+  - '#removed-files=0'
   - -conflict
   - -closed
   - -merged
