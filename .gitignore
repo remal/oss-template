@@ -30,6 +30,11 @@ build-cache/
 node_modules/
 
 
+# IntelliJ IDEA plugins:
+.intellijPlatform/
+.qodana/
+
+
 # IntelliJ:
 /layout.json
 /__placeholder__.js
