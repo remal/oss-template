@@ -37,7 +37,7 @@ jobs:
     - name: Make rate limits decision
       id: decision
       run: |
-        echo "Core rate limit usage: ${{steps.getRateLimits.outputs.coreUsage}}"
+        echo "Core rate limit usage: ${{steps.rate-limits.outputs.coreUsage}}"
         if [ "${{steps.rate-limits.outputs.coreUsage < 75}}" == "true" ]; then
           echo "Enough rate limits"
           echo 'enough=true' >> $GITHUB_OUTPUT
