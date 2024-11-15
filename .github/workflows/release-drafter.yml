@@ -35,8 +35,7 @@ jobs:
             error => { if (error.response && error.response.status === 404) return false; else throw error; }
           )
           if (!configFileExists) {
-            core.info("Config file doesn't exist: " + configFileExists)
-            return
+            core.info("Config file doesn't exist: " + configFile)
           }
           core.setOutput('exists', configFileExists ? 'true' : 'false')
           
