@@ -35,7 +35,7 @@ jobs:
           if (!configFileExists) {
             core.info("Config file doesn't exist: " + configFile)
           }
-          core.setOutput('exists', configFileExists ? 'true' : 'false')
+          core.setOutput('configFileExists', configFileExists ? 'true' : 'false')
 
           const repository = await github.rest.repos.get({
             owner: context.repo.owner,
