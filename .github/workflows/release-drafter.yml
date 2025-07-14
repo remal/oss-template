@@ -47,8 +47,14 @@ jobs:
           }
           core.setOutput('isTemplate', isTemplate ? 'true' : 'false')
 
+    - name: dump
+      env:
+        CONTEXT: ${{ toJson(steps.conditions.outputs) }}
+      run: |
+        echo "$CONTEXT"
+
     - uses: release-drafter/release-drafter@v6
       name: Update release draft
-      if: ${{fromJSON(steps.conditions.outputs.configFileExists)}}
+      if: ${{fromJSON(steps.conditions.outputs.configFileExists) && !fromJSON(steps.conditions.outputs.isTemplate)}}
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
