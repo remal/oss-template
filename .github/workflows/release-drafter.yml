@@ -42,10 +42,13 @@ jobs:
             repo: context.repo.repo,
           }).then(it => it.data)
           const isTemplate = !!repository.is_template
+          if (isTemplate) {
+            core.info("Thsi repository is a template repository")
+          }
           core.setOutput('isTemplate', isTemplate ? 'true' : 'false')
 
     - uses: release-drafter/release-drafter@v6
       name: Update release draft
-      if: ${{fromJSON(steps.conditions.outputs.configFileExists) && !fromJSON(steps.conditions.outputs.isTemplate}}
+      if: ${{fromJSON(steps.conditions.outputs.configFileExists) == true && fromJSON(steps.conditions.outputs.isTemplate} == false}
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
