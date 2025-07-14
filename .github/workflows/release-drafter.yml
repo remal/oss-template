@@ -33,7 +33,7 @@ jobs:
             error => { if (error.response && error.response.status === 404) return false; else throw error; }
           )
           if (!configFileExists) {
-            core.info("Config file doesn't exist: " + configFile)
+            core.warn("Config file doesn't exist: " + configFile)
           }
           core.setOutput('configFileExists', configFileExists ? 'true' : 'false')
 
@@ -43,15 +43,9 @@ jobs:
           }).then(it => it.data)
           const isTemplate = !!repository.is_template
           if (isTemplate) {
-            core.info("This repository is a template repository")
+            core.warn("This repository is a template repository")
           }
           core.setOutput('isTemplate', isTemplate ? 'true' : 'false')
-
-    - name: dump
-      env:
-        CONTEXT: ${{ toJson(steps.conditions.outputs) }}
-      run: |
-        echo "$CONTEXT"
 
     - uses: release-drafter/release-drafter@v6
       name: Update release draft
