@@ -33,7 +33,7 @@ jobs:
             error => { if (error.response && error.response.status === 404) return false; else throw error; }
           )
           if (!configFileExists) {
-            core.warn("Config file doesn't exist: " + configFile)
+            core.warning("Config file doesn't exist: " + configFile)
           }
           core.setOutput('configFileExists', configFileExists ? 'true' : 'false')
 
@@ -43,7 +43,7 @@ jobs:
           }).then(it => it.data)
           const isTemplate = !!repository.is_template
           if (isTemplate) {
-            core.warn("This repository is a template repository")
+            core.warning("This repository is a template repository")
           }
           core.setOutput('isTemplate', isTemplate ? 'true' : 'false')
 
