@@ -9,12 +9,16 @@ on:
     types:
     - opened
 
+env:
+  DEFAULT_ASSIGNEE: ${{secrets.DEFAULT_ASSIGNEE || 'remal'}}
+
+permissions:
+  issues: write
+  pull-requests: write
+
 defaults:
   run:
     shell: bash
-
-env:
-  DEFAULT_ASSIGNEE: ${{secrets.DEFAULT_ASSIGNEE || 'remal'}}
 
 jobs:
   auto-assign:
