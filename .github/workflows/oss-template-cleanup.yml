@@ -69,7 +69,7 @@ jobs:
     - name: Push back
       id: push-back
       if: ${{github.event_name == 'push' && startsWith(github.ref, 'refs/heads/')}}
-      uses: remal-github-actions/push-back@v1
+      uses: remal-github-actions/push-back@v2
       with:
         githubToken: ${{secrets.PUSH_BACK_TOKEN || github.token}}
         message: 'Template cleanup'
