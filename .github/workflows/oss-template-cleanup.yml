@@ -50,7 +50,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v6
       with:
+        token: ${{secrets.PUSH_BACK_TOKEN}}
+        lfs: true
         fetch-depth: 1
+
     - name: Cleanup
       run: |
         export LC_CTYPE=C
@@ -69,10 +72,10 @@ jobs:
     - name: Push back
       id: push-back
       if: ${{github.event_name == 'push' && startsWith(github.ref, 'refs/heads/')}}
-      uses: remal-github-actions/push-back@v1
+      uses: remal-github-actions/push-back@v2
       with:
-        githubToken: ${{secrets.PUSH_BACK_TOKEN || github.token}}
         message: 'Template cleanup'
+
     - name: Fail if the repository was changed before pushing back
       if: ${{steps.push-back.outputs.result == 'remote-changed'}}
       run: |
