@@ -3,6 +3,8 @@
 # All Status Checks should be listed explicitly (see https://docs.mergify.io/conditions/#about-status-checks):
 #   `build` - .github/workflows/build.yml
 
+#$schema: 'https://docs.mergify.com/mergify-configuration-schema.json'
+
 pull_request_rules:
 - name: Auto merge dependency updates
   conditions:
@@ -42,6 +44,3 @@ pull_request_rules:
     review: { }
     merge:
       method: squash
-
-
-$schema: 'https://docs.mergify.com/mergify-configuration-schema.json'
