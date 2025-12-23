@@ -1,9 +1,9 @@
 # Configuration file for Mergify GitHub App: https://github.com/marketplace/mergify
 
+#$schema: 'https://docs.mergify.com/mergify-configuration-schema.json'
+
 # All Status Checks should be listed explicitly (see https://docs.mergify.io/conditions/#about-status-checks):
 #   `build` - .github/workflows/build.yml
-
-#$schema: 'https://docs.mergify.com/mergify-configuration-schema.json'
 
 pull_request_rules:
 - name: Auto merge dependency updates
