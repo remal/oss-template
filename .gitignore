@@ -38,7 +38,6 @@ node_modules/
 *.tfstate.backup
 *.tfstate.lock.info
 .terraform/
-.terraform.lock.hcl
 
 
 # IntelliJ IDEA plugins:
