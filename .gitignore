@@ -3,6 +3,10 @@
 .DS_Store
 
 
+# Claude
+.claude/*.local.*
+
+
 # Logs:
 log/
 !**/src/**/log/
