@@ -18,38 +18,14 @@ jobs:
   update-release-draft:
     name: Update release draft
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-    - uses: actions/github-script@v8
-      name: Evaluate conditions
-      id: conditions
-      with:
-        script: |
-          const configFile = '.github/release-drafter.yml'
-          const configFileExists = await github.rest.repos.getContent({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            path: configFile,
-          }).then(
-            () => true,
-            error => { if (error.response && error.response.status === 404) return false; else throw error; }
-          )
-          if (!configFileExists) {
-            core.warning("Config file doesn't exist: " + configFile)
-          }
-          core.setOutput('configFileExists', configFileExists ? 'true' : 'false')
-
-          const repository = await github.rest.repos.get({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-          }).then(it => it.data)
-          const isTemplate = !!repository.is_template
-          if (isTemplate) {
-            core.warning("This repository is a template repository")
-          }
-          core.setOutput('isTemplate', isTemplate ? 'true' : 'false')
+    # see https://github.com/release-drafter/release-drafter/issues/493#issuecomment-3686135286
+    - name: Wait for 15 seconds to ensure GraphQL consistency
+      shell: bash
+      run: sleep 15s
 
     - uses: release-drafter/release-drafter@v6
       name: Update release draft
-      if: ${{fromJSON(steps.conditions.outputs.configFileExists) && !fromJSON(steps.conditions.outputs.isTemplate)}}
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
