@@ -20,39 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-
-Navigation Menu
-oss-template
-
-Code
-Issues
-1
-Commit 89a9cd4
-remal
-remal
-authored
-1 minute ago
-·
-·
-Verified
-Simplify release drafter workflow conditions
-Removed condition checks for config file existence and template status from the release drafter workflow.
-main
-1 parent 
-efc58a3
- commit 
-89a9cd4
-1 file changed
-Search within code
- 
-‎.github/workflows/release-drafter.yml‎
-Original file line number	Diff line number	Diff line change
-@@ -18,38 +18,14 @@ jobs:
-  update-release-draft:
-    name: Update release draft
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
     - uses: actions/github-script@v8
       name: Evaluate conditions
       id: conditions
