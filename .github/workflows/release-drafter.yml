@@ -54,8 +54,8 @@ jobs:
       shell: bash
       run: sleep 15s
 
-    - uses: release-drafter/release-drafter@v6
+    - name: Update release draft
       if: ${{fromJSON(steps.conditions.outputs.configFileExists) && !fromJSON(steps.conditions.outputs.isTemplate)}}
-      name: Update release draft
+      uses: release-drafter/release-drafter@v6
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
