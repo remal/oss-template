@@ -31,5 +31,4 @@ jobs:
     timeout-minutes: 15
     steps:
     - name: Rebase Dependabot pull requests
-      if: ${{fromJSON(steps.decision.outputs.enough) == true}}
       uses: remal-github-actions/rebase-dependabot-pull-requests@v1
