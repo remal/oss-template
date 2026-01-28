@@ -33,7 +33,7 @@ jobs:
     - name: Get repository owner type
       id: owner-type
       run: |
-        REPO_JSON=$(curl -s "${{github.api_url}}/repos/${{github.repository}}" -H "Authorization: token ${{env.VALIDATION_TOKEN}}")
+        REPO_JSON=$(curl -s "${{github.api_url}}/repos/${{github.repository}}" -H "Authorization: token ${{github.token}}")
         OWNER_TYPE=$(echo $REPO_JSON | jq -r '.owner.type')
         OWNER_TYPE=$(echo "$OWNER_TYPE" | tr '[:upper:]' '[:lower:]')
         echo "owner-type=$OWNER_TYPE" | tee -a $GITHUB_OUTPUT
