@@ -12,9 +12,9 @@ on:
   workflow_dispatch: { }
 
 permissions:
-  contents: read
-  issues: write
   pull-requests: write
+  issues: write
+  contents: read
 
 concurrency:
   group: rebase-dependabot-pull-requests-${{github.ref}}
@@ -31,4 +31,5 @@ jobs:
     timeout-minutes: 15
     steps:
     - name: Rebase Dependabot pull requests
+      if: ${{fromJSON(steps.decision.outputs.enough) == true}}
       uses: remal-github-actions/rebase-dependabot-pull-requests@v1
