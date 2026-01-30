@@ -12,9 +12,7 @@ on:
   workflow_dispatch: { }
 
 permissions:
-  pull-requests: write
-  issues: write
-  contents: read
+  id-token: write
 
 concurrency:
   group: rebase-dependabot-pull-requests-${{github.ref}}
@@ -30,5 +28,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+    - name: Get GitHub Token
+      id: get-token
+      uses: remal/github-repository-token-issuer@v1
+      with:
+        scopes: |
+          pull-requests: write
+          issues: write
+          contents: read
+
     - name: Rebase Dependabot pull requests
       uses: remal-github-actions/rebase-dependabot-pull-requests@v1
+      with:
+        githubToken: ${{steps.get-token.outputs.token}}
