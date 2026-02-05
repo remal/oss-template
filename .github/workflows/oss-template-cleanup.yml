@@ -6,7 +6,7 @@ on:
     - main
 
 permissions:
-  contents: write
+  id-token: write
 
 defaults:
   run:
@@ -47,12 +47,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+    - name: Get GitHub Token
+      id: get-token
+      uses: remal/github-repository-token-issuer@v1
+      with:
+        scopes: |
+          contents: write
+          workflows: write
+
     - name: Checkout repository
       uses: actions/checkout@v6
       with:
-        token: ${{secrets.PUSH_BACK_TOKEN}}
-        lfs: true
-        fetch-depth: 1
+        token: ${{steps.get-token.outputs.token}}
 
     - name: Cleanup
       run: |
