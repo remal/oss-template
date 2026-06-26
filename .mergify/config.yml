@@ -17,7 +17,7 @@ pull_request_rules:
   - '-draft'
   - '#changes-requested-reviews-by=0'
   - 'check-success=build'
-  - '-check-pending~=^(?!(@mergify/)?Mergify Merge Queue$).+'
+  - '-check-pending~=^(?!@mergify/|Mergify Merge Queue$).+'
   - '-check-failure~=^(?!@mergify/).+'
   actions:
     review: { }
@@ -37,7 +37,7 @@ pull_request_rules:
   - '-draft'
   - '#changes-requested-reviews-by=0'
   - 'check-success=build'
-  - '-check-pending~=^(?!(@mergify/)?Mergify Merge Queue$).+'
+  - '-check-pending~=^(?!@mergify/|Mergify Merge Queue$).+'
   - '-check-failure~=^(?!@mergify/).+'
   actions:
     review: { }
