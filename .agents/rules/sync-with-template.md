@@ -1,6 +1,6 @@
 # Sync with Template
 
-Files matching `includes`/`excludes` in `.github/sync-with-template.yml` are synced automatically from the template repository through PRs (label `sync-with-template`, auto-merged) created by the [sync-with-template action](https://github.com/remal-github-actions/sync-with-template). The template is the `TEMPLATE_REPOSITORY` secret/variable, or GitHub's "generated from" relationship when unset. The root of all template chains is [remal/oss-template](https://github.com/remal/oss-template). Files that exist only in the current repo are never touched.
+Files matching `includes`/`excludes` in `.github/sync-with-template.yml` are synced automatically from the template repository through PRs (label `sync-with-template`, auto-merged) created by the [sync-with-template action](https://github.com/remal-github-actions/sync-with-template). The template is the repository variable `TEMPLATE_REPOSITORY` (an `owner/repo` value, never an org variable), or GitHub's "generated from" relationship when it is unset. The root of all template chains is [remal/oss-template](https://github.com/remal/oss-template). Files that exist only in the current repo are never touched.
 
 **IMPORTANT: treat every repo as a generated one; do not edit synced files.** The next sync reverts local edits. Before committing, read `.github/sync-with-template.yml` and check which changed files are synced. For changes to synced files, suggest making them in the template project(s) instead, or use an escape hatch:
 
@@ -10,6 +10,13 @@ Files matching `includes`/`excludes` in `.github/sync-with-template.yml` are syn
   - `<name>`: any characters except `$`, spaces allowed, surrounding whitespace trimmed. Names must be unique within a file.
   - The marker pair must exist in the template's copy of the file. A section present only in the downstream repo is removed by the next sync.
   - The template's section body is the default content for repos that do not override the section.
+
+**Verify where a synced file comes from before editing or attributing it, never guess.** Get the current repo's template source with the command below, then confirm the specific file exists there. A file absent upstream is authored in the current repo and syncs downward, so edit it in the current repo. Naming the source repo does not settle a given file's origin; only confirming the file exists upstream does.
+
+```bash
+# Template source of the current repo: the TEMPLATE_REPOSITORY variable, else the generated-from relationship
+gh variable get TEMPLATE_REPOSITORY 2>/dev/null || gh api repos/{owner}/{repo} --jq '.template_repository.full_name'
+```
 
 Notes:
 
