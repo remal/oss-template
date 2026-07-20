@@ -67,7 +67,7 @@ jobs:
 
         NAME="${GITHUB_REPOSITORY##*/}"
 
-        sed -i "s/%NAME%/$NAME/g" .github/oss-template-cleanup/*
+        sed -i "s/%NAME%/${NAME}/g" .github/oss-template-cleanup/*
         sed -i "s/%REPOSITORY%/${GITHUB_REPOSITORY/\//\\/}/g" .github/oss-template-cleanup/*
         cp -R .github/oss-template-cleanup/. .
 
