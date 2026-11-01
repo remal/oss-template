@@ -1,0 +1,27 @@
+name: build
+
+# Repo-local no-op build: oss-template has nothing to compile, but Mergify's dependency
+# auto-merge rule requires a successful 'build' check. Excluded from template sync.
+
+on:
+  push:
+    branches:
+    - 'main'
+    - 'master'
+  pull_request: { }
+  workflow_dispatch: { }
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repo-local-build-${{github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+    - run: 'true'
