@@ -21,6 +21,7 @@ gh variable get TEMPLATE_REPOSITORY 2>/dev/null || gh api repos/{owner}/{repo} -
 Notes:
 
 - Closing a sync PR does not reject the change; the PR is recreated.
+- Workflow files matching `.github/workflows/repo-local-*` are excluded from sync. Use the `repo-local-` prefix for workflows a template repo must keep to itself, such as a build workflow that downstream repos must not inherit.
 - Deleting or renaming a synced file in the template does not remove it downstream. Add the old path to the template's `.github/sync-with-template-delete.list`.
 - Keep the `# sync-with-template: adjust` comment on `cron:` lines. The action deliberately shifts such crons per repo, so values differ from the template.
 - Rule files live in `.agents/rules/` (`.claude/rules` is a symlink to it) and are synced, so add or edit rules in the template.
